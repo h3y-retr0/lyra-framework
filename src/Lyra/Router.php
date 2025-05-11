@@ -1,7 +1,6 @@
 <?php
 
-require "./HttpMethod.php";
-require "./HttpNotFoundException.php";
+namespace Lyra;
 
 class Router {
     protected array $routes = [];
@@ -44,6 +43,4 @@ class Router {
     public function delete(string $uri, callable $action) {
         $this->routes[HttpMethod::DELETE->value][$uri] = $action;
     }
-
-    
 }

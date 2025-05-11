@@ -1,6 +1,9 @@
 <?php
 
-require "./Router.php";
+require_once "../vendor/autoload.php";
+
+use Lyra\HttpNotFoundException;
+use Lyra\Router;
 
 $router = new Router();
 

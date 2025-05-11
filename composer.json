@@ -1,0 +1,18 @@
+{
+  "name": "retr0/lyra-framework",
+  "description": "Simple PHP framework inspired by Laravel",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Lyra\\": "src/Lyra"
+    }
+  },
+  "authors": [
+    {
+      "name": "h3y-retr0",
+      "email": "jgr.espiga@protonmail.com"
+    }
+  ],
+  "require": {}
+}
