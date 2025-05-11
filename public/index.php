@@ -3,6 +3,7 @@
 require_once "../vendor/autoload.php";
 
 use Lyra\HttpNotFoundException;
+use Lyra\Route;
 use Lyra\Router;
 
 $router = new Router();
@@ -15,7 +16,8 @@ $router->delete('/test', fn () => "DELETE OK");
 
 
 try {
-    $action = $router->resolve($_SERVER["REQUEST_URI"], $_SERVER["REQUEST_METHOD"]);
+    $route = $router->resolve($_SERVER["REQUEST_URI"], $_SERVER["REQUEST_METHOD"]);
+    $action = $route->action();
     print($action());
 } catch (HttpNotFoundException $e) {
     print("Not found");
