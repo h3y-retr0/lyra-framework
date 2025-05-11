@@ -8,11 +8,21 @@
       "Lyra\\": "src/Lyra"
     }
   },
+  "scripts": {
+    "test": "phpunit --color=always --testdox tests/"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Lyra\\Tests\\": "tests"
+    }
+  },
   "authors": [
     {
       "name": "h3y-retr0",
       "email": "jgr.espiga@protonmail.com"
     }
   ],
-  "require": {}
+  "require-dev": {
+    "phpunit/phpunit": "^11.5"
+  }
 }
