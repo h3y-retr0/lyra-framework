@@ -2,10 +2,10 @@
 
 namespace Lune\Tests;
 
-use Lyra\HttpMethod;
-use Lyra\Request;
-use Lyra\Router;
-use Lyra\Server;
+use Lyra\Http\HttpMethod;
+use Lyra\Http\Request;
+use Lyra\Routing\Router;
+use Lyra\Server\Server;
 use PHPUnit\Framework\TestCase;
 
 class RouterTest extends TestCase {

@@ -2,7 +2,7 @@
 
 namespace Lune\Tests;
 
-use Lyra\Route;
+use Lyra\Routing\Route;
 use PHPUnit\Framework\TestCase;
 
 class RouteTest extends TestCase {

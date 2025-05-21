@@ -1,6 +1,8 @@
 <?php
 
-namespace Lyra;
+namespace Lyra\Http;
+
+use Lyra\Server\Server;
 
 class Request {
     protected string $uri;

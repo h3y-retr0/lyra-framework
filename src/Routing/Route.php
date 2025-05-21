@@ -1,6 +1,6 @@
 <?php
 
-namespace Lyra;
+namespace Lyra\Routing;
 
 class Route {
     protected string $uri;

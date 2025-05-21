@@ -1,6 +1,6 @@
 <?php
 
-namespace Lyra;
+namespace Lyra\Http;
 
 enum HttpMethod: string {
     case GET = "GET";

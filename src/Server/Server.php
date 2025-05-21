@@ -1,10 +1,14 @@
 <?php
 
-namespace Lyra;
+namespace Lyra\Server;
+
+use Lyra\Http\HttpMethod;
+use Lyra\Http\Response;
 
 interface Server {
     public function requestUri(): string;
     public function requestMethod(): HttpMethod;
     public function postData(): array;
     public function queryParams(): array;
+    public function sendResponse(Response $response);
 }

@@ -1,26 +1,49 @@
 <?php
 
-require_once "../vendor/autoload.php";
+use Lyra\Http\HttpNotFoundException;
+use Lyra\Http\Request;
+use Lyra\Http\Response;
+use Lyra\Routing\Router;
+use Lyra\Server\PhpNativeServer;
 
-use Lyra\HttpNotFoundException;
-use Lyra\PhpNativeServer;
-use Lyra\Request;
-use Lyra\Router;
+require_once "../vendor/autoload.php";
 
 $router = new Router();
 
-$router->get('/test', fn () => "GET OK");
-$router->post('/test', fn () => "POST OK");
-$router->put('/test', fn () => "PUT OK");
-$router->patch('/test', fn () => "PATCH OK");
-$router->delete('/test', fn () => "DELETE OK");
+$router->get('/test', function (Request $request) {
+    /* Builder design pattern */
+    return Response::text("GET OK");
+});
+
+$router->post('/test', function (Request $request) {
+    return Response::text("POST OK");
+});
+
+$router->get('/redirect', function () {
+    return Response::redirect("/test");
+});
+
+$router->put('/test', function () {
+    return "PUT OK";
+});
+
+$router->patch ('/test', function () {
+    return "PATCH OK";
+});
+
+$router->delete('/test', function () {
+    return "DELETE OK";
+});
 
 
+$server = new PhpNativeServer();
 try {
-    $route = $router->resolve(new Request(new PhpNativeServer()));
+    $request = new Request($server);
+    $route = $router->resolve($request);
     $action = $route->action();
-    print($action());
+    $response = $action($request);
+    $server->sendResponse($response);
 } catch (HttpNotFoundException $e) {
-    print("Not found");
-    http_response_code(404);
+    $response = Response::text("Not found")->setStatus(404);
+    $server->sendResponse($response);
 }

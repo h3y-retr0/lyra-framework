@@ -5,7 +5,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Lyra\\": "src/Lyra"
+      "Lyra\\": "src/"
     }
   },
   "scripts": {

@@ -1,8 +1,11 @@
 <?php
 
-namespace Lyra;
+namespace Lyra\Routing;
 
 use Closure;
+use Lyra\Http\HttpMethod;
+use Lyra\Http\HttpNotFoundException;
+use Lyra\Http\Request;
 
 class Router {
     protected array $routes = [];

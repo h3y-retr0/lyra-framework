@@ -1,6 +1,6 @@
 <?php
 
-namespace Lyra;
+namespace Lyra\Http;
 
 
 class HttpNotFoundException extends \Exception {
