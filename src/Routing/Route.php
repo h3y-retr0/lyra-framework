@@ -2,15 +2,45 @@
 
 namespace Lyra\Routing;
 
+/**
+ * This class stores the URI regex and action.
+ */
 class Route {
+
+    /**
+     * URI defined in the format `"/route/{param}"`.
+     *
+     * @var string
+     */
     protected string $uri;
 
+    /**
+     * Action associated to this URI.
+     *
+     * @var \Closure
+     */
     protected \Closure $action;
 
+    /**
+     * Regular expression used to match incoming request URIs.
+     *
+     * @var string
+     */
     protected string $regex;
 
+    /**
+     * Route parameter names
+     *
+     * @var string[]
+     */
     protected array $parameters;
 
+    /**
+     * Create a new route with the given `$uri` and `$action`.
+     *
+     * @param string $uri
+     * @param \Closure $action
+     */
     public function __construct(string $uri, \Closure $action) {
         $this->uri = $uri;
         $this->action = $action;
@@ -19,22 +49,49 @@ class Route {
         $this->parameters = $parameters[1];
     }
 
-    public function uri() {
+    /**
+     * Get the URI definition for this route.
+     *
+     * @return string
+     */
+    public function uri(): string {
         return $this->uri;
     }
 
+    /**
+     * Action that handles requests to this route URI.
+     *
+     * @return void
+     */
     public function action() {
         return $this->action;
     }
 
+    /**
+     * Check if the given `$uri` matches the regex of this route.
+     *
+     * @param string $uri
+     * @return boolean
+     */
     public function matches(string $uri): bool {
         return preg_match("#^$this->regex/?$#", $uri);
     }
 
+    /**
+     * Check if this route has variable parameters in its definition.
+     *
+     * @return boolean
+     */
     public function hasParameters(): bool {
         return count($this->parameters) > 0;
     }
 
+    /**
+     * Get the key-value pairs from the `$uri` as defined by this route.
+     *
+     * @param string $uri
+     * @return array
+     */
     public function parseParameters(string $uri): array {
         preg_match("#^$this->regex$#", $uri, $arguments);
 

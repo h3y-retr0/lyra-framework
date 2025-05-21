@@ -1,6 +1,6 @@
 <?php
 
-namespace Lune\Tests;
+namespace Lune\Tests\Routing;
 
 use Lyra\Http\HttpMethod;
 use Lyra\Http\Request;
