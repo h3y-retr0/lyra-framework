@@ -58,12 +58,33 @@ class Request {
     }
 
     /**
+     * Set request URI
+     *
+     * @param string $uri
+     * @return self
+     */
+    public function setUri(string $uri): self {
+        $this->uri = $uri;
+        return $this;
+    }
+    /**
      * Get the requset HTTP method.
      *
      * @return HttpMethod
      */
     public function method(): HttpMethod {
         return $this->method;
+    }
+
+    /**
+     * Set request HTTP method.
+     *
+     * @param HttpMethod $method
+     * @return self
+     */
+    public function setMethod(HttpMethod $method): self {
+        $this->method = $method;
+        return $this;
     }
 
     /**
@@ -76,11 +97,33 @@ class Request {
     }
 
     /**
+     * Set POST data.
+     *
+     * @param array $data
+     * @return self
+     */
+    public function setPostData(array $data): self {
+        $this->data = $data;
+        return $this;
+    }
+
+    /**
      * Get all query parameters.
      *
      * @return array
      */
     public function query(): array {
         return $this->query;
+    }
+
+    /**
+     * Set query parameters.
+     *
+     * @param array $query
+     * @return self
+     */
+    public function setQueryParameters(array $query): self {
+        $this->query = $query;
+        return $this;
     }
 }
