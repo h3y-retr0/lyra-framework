@@ -43,7 +43,7 @@ class RouterTest extends TestCase {
         foreach ($routes as $uri => $action) {
             $router->get($uri, $action);
         }
-        
+
         foreach ($routes as $uri => $action) {
             $route = $router->resolve($this->createMockRequest($uri, HttpMethod::GET));
             $this->assertEquals($uri, $route->uri());

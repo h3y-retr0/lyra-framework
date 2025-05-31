@@ -54,7 +54,6 @@ class Router {
      */
     protected function registerRoute(HttpMethod $method, string $uri, Closure $action) {
         $this->routes[$method->value][] = new Route($uri, $action);
-
     }
 
     /**
@@ -100,7 +99,7 @@ class Router {
     public function patch(string $uri, Closure $action) {
         $this->registerRoute(HttpMethod::PATCH, $uri, $action);
     }
-    
+
     /**
      * Register a DELETE route with the given `$uri` and `$action`.
      *

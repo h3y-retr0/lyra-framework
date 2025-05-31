@@ -32,7 +32,7 @@ interface Server {
     public function postData(): array;
 
     /**
-     * Get request query params.
+     * Get request query parameters.
      *
      * @return array
      */

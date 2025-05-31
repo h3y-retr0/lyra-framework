@@ -32,7 +32,7 @@ class Response {
      *
      * @return integer
      */
-    public function status():int {
+    public function status(): int {
         return $this->status;
     }
 
@@ -52,7 +52,7 @@ class Response {
      *
      * @return array<string, string>
      */
-    public function headers():array {
+    public function headers(): array {
         return $this->headers;
     }
 
@@ -96,7 +96,6 @@ class Response {
     public function setContent(string $content): self {
         $this->content = $content;
         return $this;
-
     }
 
     /**
@@ -124,7 +123,7 @@ class Response {
         }
     }
 
-   
+
     /* Factory */
 
     /**
@@ -138,7 +137,7 @@ class Response {
             ->setContentType("application/json")
             ->setContent(json_encode($data));
     }
-    
+
     /**
      * Create a new plain text response.
      *

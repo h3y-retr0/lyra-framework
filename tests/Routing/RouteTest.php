@@ -16,7 +16,7 @@ class RouteTest extends TestCase {
             ['/test/another/very/nested/route'],
         ];
     }
-    
+
     #[\PHPUnit\Framework\Attributes\DataProvider('routesWithNoParameters')]
     public function test_regex_with_no_parameters(string $uri) {
         $route = new Route($uri, fn () => "test");
@@ -35,7 +35,7 @@ class RouteTest extends TestCase {
     public static function routesWithParameters() {
         return [
             [
-                '/test/{test}', 
+                '/test/{test}',
                 '/test/1',
                 ['test' => 1],
             ],
@@ -62,7 +62,7 @@ class RouteTest extends TestCase {
             ]
         ];
     }
-    
+
     #[\PHPUnit\Framework\Attributes\DataProvider('routesWithParameters')]
     public function test_regex_with_parameters(string $definition, string $uri) {
         $route = new Route($definition, fn () => "test");
@@ -77,5 +77,5 @@ class RouteTest extends TestCase {
         $route = new Route($definition, fn () => "test");
         $this->assertTrue($route->hasParameters());
         $this->assertEquals($expectedParameters, $route->parseParameters($uri));
-    } 
+    }
 }

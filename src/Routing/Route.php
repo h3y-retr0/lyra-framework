@@ -6,7 +6,6 @@ namespace Lyra\Routing;
  * This class stores the URI regex and action.
  */
 class Route {
-
     /**
      * URI defined in the format `"/route/{param}"`.
      *

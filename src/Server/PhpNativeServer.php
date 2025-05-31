@@ -8,7 +8,7 @@ use Lyra\Http\Response;
 /**
  * PHP native server that uses `$_SERVER` global.
  */
-class PhpNativeServer implements Server{
+class PhpNativeServer implements Server {
     /**
      * @inheritDoc
      */
