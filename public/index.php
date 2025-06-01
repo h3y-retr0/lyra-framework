@@ -10,13 +10,12 @@ require_once "../vendor/autoload.php";
 
 $router = new Router();
 
-$router->get('/test', function (Request $request) {
-    /* Builder design pattern */
-    return Response::text("GET OK");
+$router->get('/test/{param}', function (Request $request) {
+    return Response::json($request->routeParameters());
 });
 
 $router->post('/test', function (Request $request) {
-    return Response::text("POST OK");
+    return Response::json($request->query());
 });
 
 $router->get('/redirect', function () {
@@ -38,8 +37,9 @@ $router->delete('/test', function () {
 
 $server = new PhpNativeServer();
 try {
-    $request = new Request($server);
+    $request = $server->getRequest();
     $route = $router->resolve($request);
+    $request->setRoute($route);
     $action = $route->action();
     $response = $action($request);
     $server->sendResponse($response);

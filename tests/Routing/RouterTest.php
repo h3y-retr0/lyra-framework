@@ -5,18 +5,13 @@ namespace Lune\Tests\Routing;
 use Lyra\Http\HttpMethod;
 use Lyra\Http\Request;
 use Lyra\Routing\Router;
-use Lyra\Server\Server;
 use PHPUnit\Framework\TestCase;
 
 class RouterTest extends TestCase {
     private function createMockRequest(string $uri, HttpMethod $method): Request {
-        $mockServer = $this->getMockBuilder(Server::class)->getMock();
-        $mockServer->method('requestUri')->willReturn($uri);
-        $mockServer->method('requestMethod')->willReturn($method);
-        $mockServer->method('postData')->willReturn([]);
-        $mockServer->method('queryParams')->willReturn([]);
-
-        return new Request($mockServer);
+        return (new Request())
+            ->setUri($uri)
+            ->setMethod($method);
     }
 
     public function test_resolve_basic_route_with_callback_action() {

@@ -1,6 +1,7 @@
 <?php
 
 namespace Lyra\Tests\Http;
+
 use Lyra\Http\Response;
 use PHPUnit\Framework\TestCase;
 

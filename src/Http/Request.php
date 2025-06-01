@@ -2,7 +2,7 @@
 
 namespace Lyra\Http;
 
-use Lyra\Server\Server;
+use Lyra\Routing\Route;
 
 /**
  * HTTP Request sent by the client.
@@ -14,6 +14,13 @@ class Request {
      * @var string
      */
     protected string $uri;
+
+    /**
+     * ROute matched by URI.
+     *
+     * @var Route
+     */
+    protected Route $route;
 
     /**
      * HTTP Method used for this request.
@@ -37,18 +44,6 @@ class Request {
     protected ?array $query;
 
     /**
-     * Create a new request instance from the given `$server`.
-     *
-     * @param Server $server
-     */
-    public function __construct(Server $server) {
-        $this->uri = $server->requestUri();
-        $this->method = $server->requestMethod();
-        $this->data = $server->postData();
-        $this->query = $server->queryParams();
-    }
-
-    /**
      * Get the request URI.
      *
      * @return string
@@ -65,6 +60,25 @@ class Request {
      */
     public function setUri(string $uri): self {
         $this->uri = $uri;
+        return $this;
+    }
+
+    /**
+     * Get route matched by the URI of this request.
+     *
+     * @return Route
+     */
+    public function route(): Route {
+        return $this->route;
+    }
+    /**
+     * Set route for this request.
+     *
+     * @param Route $route
+     * @return self
+     */
+    public function setRoute(Route $route): self {
+        $this->route = $route;
         return $this;
     }
     /**
@@ -92,8 +106,11 @@ class Request {
      *
      * @return array
      */
-    public function data(): array {
-        return $this->data;
+    public function data(?string $key = null): array|string|null {
+        if (is_null($key)) {
+            return $this->data;
+        }
+        return $this->data[$key] ?? null;
     }
 
     /**
@@ -112,8 +129,11 @@ class Request {
      *
      * @return array
      */
-    public function query(): array {
-        return $this->query;
+    public function query(?string $key = null): array|string|null {
+        if (is_null($key)) {
+            return $this->query;
+        }
+        return $this->query[$key] ?? null;
     }
 
     /**
@@ -125,5 +145,20 @@ class Request {
     public function setQueryParameters(array $query): self {
         $this->query = $query;
         return $this;
+    }
+
+    /**
+     * Get all route parameters.
+     *
+     * @return array
+     */
+    public function routeParameters(?string $key = null): array|string|null {
+        $params = $this->route->parseParameters($this->uri);
+
+        if (is_null($key)) {
+            return $params;
+        }
+
+        return $params[$key] ?? null;
     }
 }
