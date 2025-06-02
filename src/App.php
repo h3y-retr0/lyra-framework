@@ -9,6 +9,8 @@ use Lyra\Http\Response;
 use Lyra\Routing\Router;
 use Lyra\Server\PhpNativeServer;
 use Lyra\Server\Server;
+use Lyra\View\LyraEngine;
+use Lyra\View\View;
 
 class App {
     /**
@@ -32,6 +34,8 @@ class App {
      */
     public Server $server;
 
+    public View $view;
+
     /**
      * Initialize the app.
      *
@@ -42,6 +46,7 @@ class App {
         $app->router = new Router();
         $app->server = new PhpNativeServer();
         $app->request = $app->server->getRequest();
+        $app->view = new LyraEngine(__DIR__ . "/../views/");
 
         return $app;
     }
