@@ -2,7 +2,6 @@
 
 namespace Lyra;
 
-use Lyra\Container\Container;
 use Lyra\Http\HttpNotFoundException;
 use Lyra\Http\Request;
 use Lyra\Http\Response;
@@ -42,7 +41,7 @@ class App {
      * @return \Lyra\App
      */
     public static function bootstrap() {
-        $app = Container::singleton(self::class);
+        $app = singleton(self::class);
         $app->router = new Router();
         $app->server = new PhpNativeServer();
         $app->request = $app->server->getRequest();

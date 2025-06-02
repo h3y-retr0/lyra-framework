@@ -6,7 +6,11 @@
   "autoload": {
     "psr-4": {
       "Lyra\\": "src/"
-    }
+    },
+    "files": [
+      "src/Helpers/kernel.php",
+      "src/Helpers/http.php"
+    ]
   },
   "scripts": {
     "tests": "phpunit --color=always --testdox tests/",
