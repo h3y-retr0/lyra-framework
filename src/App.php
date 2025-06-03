@@ -8,8 +8,10 @@ use Lyra\Http\Response;
 use Lyra\Routing\Router;
 use Lyra\Server\PhpNativeServer;
 use Lyra\Server\Server;
+use Lyra\Validation\Exceptions\ValidationException;
 use Lyra\View\LyraEngine;
 use Lyra\View\View;
+use Throwable;
 
 class App {
     /**
@@ -55,8 +57,20 @@ class App {
             $response = $this->router->resolve($this->request);
             $this->server->sendResponse($response);
         } catch (HttpNotFoundException $e) {
-            $response = Response::text("Not found")->setStatus(404);
-            $this->server->sendResponse($response);
+            $this->abort(Response::text("Not fount")->setStatus(404));
+        } catch (ValidationException $e) {
+            $this->abort(json($e->errors())->setStatus(422));
+        } catch (Throwable $e) {
+            $response = json([
+                "message" => $e->getMessage(),
+                "trace" => $e->getTrace()
+            ]);
+
+            $this->abort($response);
         }
+    }
+
+    public function abort(Response $response) {
+        $this->server->sendResponse($response);
     }
 }

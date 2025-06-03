@@ -5,6 +5,8 @@ use Lyra\Http\Middleware;
 use Lyra\Http\Request;
 use Lyra\Http\Response;
 use Lyra\Routing\Route;
+use Lyra\Validation\Rule;
+use Lyra\Validation\Rules\Required;
 
 require_once "../vendor/autoload.php";
 
@@ -53,4 +55,15 @@ Route::get('/middlewares', fn (Request $request) => json(["message" => "ok"]))
 Route::get('/html', fn (Request $request) => view('home', [
     'user' => ['name' => 'manolo', 'email' => 'manolo@gmail.com']
 ]));
+
+Route::post('/validate', fn (Request $request) => json($request->validate([
+    'test' => Rule::required(),
+    'num' => Rule::number(),
+    'email' => [Rule::required(), Rule::email()]
+], [
+    'email' => [
+        Required::class => 'Custom message'
+    ]
+])));
+
 $app->run();

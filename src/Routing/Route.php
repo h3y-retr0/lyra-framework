@@ -3,8 +3,6 @@
 namespace Lyra\Routing;
 
 use Closure;
-use Lyra\App;
-use Lyra\Container\Container;
 
 /**
  * This class stores the URI regex and action.
@@ -41,7 +39,7 @@ class Route {
     /**
      * HTTP middlewares;
      *
-     * @var \Lune\Http\Middleware[]
+     * @var \Lyra\Http\Middleware[]
      */
     protected array $middlewares = [];
 
@@ -80,7 +78,7 @@ class Route {
     /**
      * Get all HTTP middlewares for this route
      *
-     * @return \Lune\Http\Middleware[]
+     * @return \Lyra\Http\Middleware[]
      */
     public function middlewares(): array {
         return $this->middlewares;
@@ -139,5 +137,9 @@ class Route {
 
     public static function get(string $uri, Closure $action): Route {
         return app()->router->get($uri, $action);
+    }
+
+    public static function post(string $uri, Closure $action): Route {
+        return app()->router->post($uri, $action);
     }
 }

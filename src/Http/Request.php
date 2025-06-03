@@ -3,6 +3,7 @@
 namespace Lyra\Http;
 
 use Lyra\Routing\Route;
+use Lyra\Validation\Validator;
 
 /**
  * HTTP Request sent by the client.
@@ -179,5 +180,18 @@ class Request {
         }
 
         return $params[$key] ?? null;
+    }
+
+    /**
+     * Validate the data from this `Request` using `Validator` class.
+     *
+     * @param array $rules
+     * @param array|null $messages
+     * @return array
+     */
+    public function validate(array $rules, ?array $messages = []): array {
+        $validator = new Validator($this->data);
+
+        return $validator->validate($rules, $messages);
     }
 }

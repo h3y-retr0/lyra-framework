@@ -1,6 +1,6 @@
 <?php
 
-namespace Lune\Tests\Routing;
+namespace Lyra\Tests\Routing;
 
 use Closure;
 use Lyra\Http\HttpMethod;
