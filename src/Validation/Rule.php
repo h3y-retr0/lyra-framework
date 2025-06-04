@@ -38,4 +38,15 @@ class Rule {
     ): ValidationRule {
         return new RequiredWhen($otherField, $operator, $value);
     }
+
+    public static function from(string $str): ValidationRule {
+        /**
+         * Rule format
+         * Required -> required
+         * LessThan(5) -> less_than:5
+         * RequiredWhen(num, >=, 6) -> required_when:num,>=,6
+         */
+
+         
+    }
 }
