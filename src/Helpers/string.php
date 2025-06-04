@@ -20,9 +20,9 @@ function snake_case(string $str): string {
                 $snake_cased[] = '_';
             }
             $snake_cased[] = strtolower($character);
-        } else if (ctype_lower($character)) {
+        } elseif (ctype_lower($character)) {
             $snake_cased[] = $character;
-        } else if (in_array($character, $skip)) {
+        } elseif (in_array($character, $skip)) {
             if ($prev !== '_') {
                 $snake_cased[] = '_';
             }

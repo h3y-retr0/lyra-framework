@@ -59,10 +59,10 @@ Route::get('/html', fn (Request $request) => view('home', [
 Route::post('/validate', fn (Request $request) => json($request->validate([
     'test' => Rule::required(),
     'num' => Rule::number(),
-    'email' => [Rule::required(), Rule::email()]
+    'email' => ['required_when:num,>,5', 'email']
 ], [
     'email' => [
-        Required::class => 'Custom message'
+        'email' => 'Custom message give me email'
     ]
 ])));
 

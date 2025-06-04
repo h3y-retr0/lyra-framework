@@ -2,6 +2,7 @@
 
 namespace Lyra\Tests\Validation;
 
+use Lyra\Validation\Exceptions\RuleParseException;
 use Lyra\Validation\Rules\Email;
 use Lyra\Validation\Rules\LessThan;
 use Lyra\Validation\Rules\Number;
@@ -118,5 +119,12 @@ class ValidationRulesTest extends TestCase {
     public function test_required_when($other, $operator, $compareWith, $data, $field, $expected) {
         $rule = new RequiredWhen($other, $operator, $compareWith);
         $this->assertEquals($expected, $rule->isValid($field, $data));
+    }
+
+    public function test_required_when_throws_parse_rule_exception_when_operator_is_invalid() {
+        $rule = new RequiredWhen("other", "|||", "test");
+        $data = ["other" => 5, "test" => 1];
+        $this->expectException(RuleParseException::class);
+        $rule->isValid("test", $data);
     }
 }

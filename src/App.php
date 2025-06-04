@@ -9,6 +9,7 @@ use Lyra\Routing\Router;
 use Lyra\Server\PhpNativeServer;
 use Lyra\Server\Server;
 use Lyra\Validation\Exceptions\ValidationException;
+use Lyra\Validation\Rule;
 use Lyra\View\LyraEngine;
 use Lyra\View\View;
 use Throwable;
@@ -48,7 +49,7 @@ class App {
         $app->server = new PhpNativeServer();
         $app->request = $app->server->getRequest();
         $app->view = new LyraEngine(__DIR__ . "/../views/");
-
+        Rule::loadDefaultRules();
         return $app;
     }
 
@@ -62,11 +63,12 @@ class App {
             $this->abort(json($e->errors())->setStatus(422));
         } catch (Throwable $e) {
             $response = json([
+                "error" => $e::class,
                 "message" => $e->getMessage(),
                 "trace" => $e->getTrace()
             ]);
 
-            $this->abort($response);
+            $this->abort($response->setStatus(500));
         }
     }
 
