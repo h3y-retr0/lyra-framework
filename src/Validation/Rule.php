@@ -100,7 +100,7 @@ class Rule {
 
         return $class->newInstance(...$givenParams);
     }
-    
+
     public static function from(string $str): ValidationRule {
         // TODO: parse rules as Laravel does: 'email' => 'required|email'
         /**

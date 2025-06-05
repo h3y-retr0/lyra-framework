@@ -3,7 +3,6 @@
 namespace Lyra\Session;
 
 interface SessionStorage {
-
     public function start();
 
     public function save();

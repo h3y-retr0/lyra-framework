@@ -16,7 +16,12 @@ class Session {
         }
     }
 
-    public function __destruct() {
+    /**
+     * Method added so that we can perform tests without calling explicitly __destruct() method
+     *
+     * @return void
+     */
+    public function finalize() {
         foreach ($this->storage->get(self::FLASH_KEY)['old'] as $key) {
             $this->storage->remove($key);
         }
@@ -24,6 +29,11 @@ class Session {
         $this->storage->save();
     }
 
+    public function __destruct() {
+        $this->finalize();
+    }
+
+    
     public function ageFlashData() {
         $flash = $this->storage->get(self::FLASH_KEY);
         $flash['old'] = $flash['new'];

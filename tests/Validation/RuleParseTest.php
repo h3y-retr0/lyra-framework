@@ -27,7 +27,7 @@ class RuleParseTest extends TestCase {
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('basicRules')]
-    public function test_parse_basic_rules($class, $name)  {
+    public function test_parse_basic_rules($class, $name) {
         $this->assertInstanceOf($class, Rule::from($name));
     }
 

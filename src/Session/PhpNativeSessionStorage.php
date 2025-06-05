@@ -8,7 +8,6 @@ namespace Lyra\Session;
  * PhP native session concrete implementation
  */
 class PhpNativeSessionStorage implements SessionStorage {
-
     public function start() {
         if (!session_start()) {
             throw new \RuntimeException("Failed starting session");
