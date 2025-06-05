@@ -8,6 +8,8 @@ use Lyra\Http\Response;
 use Lyra\Routing\Router;
 use Lyra\Server\PhpNativeServer;
 use Lyra\Server\Server;
+use Lyra\Session\PhpNativeSessionStorage;
+use Lyra\Session\Session;
 use Lyra\Validation\Exceptions\ValidationException;
 use Lyra\Validation\Rule;
 use Lyra\View\LyraEngine;
@@ -38,6 +40,8 @@ class App {
 
     public View $view;
 
+    public Session $session;
+
     /**
      * Initialize the app.
      *
@@ -49,7 +53,9 @@ class App {
         $app->server = new PhpNativeServer();
         $app->request = $app->server->getRequest();
         $app->view = new LyraEngine(__DIR__ . "/../views/");
+        $app->session = new Session(new PhpNativeSessionStorage());
         Rule::loadDefaultRules();
+        
         return $app;
     }
 
