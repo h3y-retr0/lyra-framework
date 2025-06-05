@@ -33,7 +33,7 @@ class Session {
         $this->finalize();
     }
 
-    
+
     public function ageFlashData() {
         $flash = $this->storage->get(self::FLASH_KEY);
         $flash['old'] = $flash['new'];

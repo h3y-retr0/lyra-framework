@@ -1,6 +1,7 @@
 <?php
 
 use Lyra\App;
+use Lyra\Database\DB;
 use Lyra\Http\Middleware;
 use Lyra\Http\Request;
 use Lyra\Http\Response;
@@ -77,5 +78,15 @@ Route::post('/form', function (Request $request) {
     return json($request->validate(['email' => 'email', 'name' => 'number']));
 });
 
+Route::post('/user', function (Request $request) {
+    DB::statement("INSERT INTO users(name, email) VALUES(?, ?)", [$request->data('name'), $request->data('email')]);
+    return json(["message" => "ok"]);
+});
+
+Route::get('/user', function (Request $requets) {
+    return json(DB::statement("SELECT * FROM users"));
+});
+
 $app->run();
+
 

@@ -2,6 +2,8 @@
 
 namespace Lyra;
 
+use Lyra\Database\Drivers\DatabaseDriver;
+use Lyra\Database\Drivers\PdoDriver;
 use Lyra\Http\HttpMethod;
 use Lyra\Http\HttpNotFoundException;
 use Lyra\Http\Request;
@@ -43,6 +45,8 @@ class App {
 
     public Session $session;
 
+    public DatabaseDriver $database;
+
     /**
      * Initialize the app.
      *
@@ -55,6 +59,8 @@ class App {
         $app->request = $app->server->getRequest();
         $app->view = new LyraEngine(__DIR__ . "/../views/");
         $app->session = new Session(new PhpNativeSessionStorage());
+        $app->database = new PdoDriver();
+        $app->database->connect('mysql', 'localhost', 3306, 'lyra_framework', 'root', '');
         Rule::loadDefaultRules();
 
         return $app;
@@ -69,6 +75,8 @@ class App {
     public function terminate(Response $response) {
         $this->prepareNextRequest();
         $this->server->sendResponse($response);
+        $this->database->close();
+        exit();
     }
 
     public function run() {
