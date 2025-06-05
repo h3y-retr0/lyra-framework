@@ -2,6 +2,7 @@
 
 use Lyra\App;
 use Lyra\Database\DB;
+use Lyra\Database\Model;
 use Lyra\Http\Middleware;
 use Lyra\Http\Request;
 use Lyra\Http\Response;
@@ -85,6 +86,19 @@ Route::post('/user', function (Request $request) {
 
 Route::get('/user', function (Request $requets) {
     return json(DB::statement("SELECT * FROM users"));
+}); 
+
+class User extends Model {
+
+}
+
+Route::post('/user/model', function(Request $request) {
+    $user = new User();
+    $user->name = $request->data('name');
+    $user->email = $request->data('email');
+    $user->save();
+
+    return json(["message" => "ok"]);
 });
 
 $app->run();
