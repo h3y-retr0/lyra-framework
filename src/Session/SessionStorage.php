@@ -6,6 +6,8 @@ interface SessionStorage {
 
     public function start();
 
+    public function save();
+
     public function id(): string;
 
     public function get(string $key, $default = null);
