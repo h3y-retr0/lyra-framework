@@ -16,6 +16,8 @@ abstract class Model {
 
     protected array $attributes = [];
 
+    protected bool $insertTimestamps = false;
+
     private static ?DatabaseDriver $driver = null;
 
     public static function setDatabaseDriver(DatabaseDriver $driver) {
@@ -49,7 +51,7 @@ abstract class Model {
 
     protected function massAsign(array $attributes): static {
         /*
-            Laravel's idea where you can't massAsign attributes that are not 
+            Laravel's idea where you can't massAsign attributes that are not
             specified as `fillable`.
         */
         if (count($this->fillable) == 0) {
@@ -66,12 +68,16 @@ abstract class Model {
 
     public function toArray(): array {
         return array_filter(
-            $this->attributes, 
+            $this->attributes,
             fn ($attr) => !in_array($attr, $this->hidden)
         );
     }
 
     public function save(): static {
+        if ($this->insertTimestamps) {
+            $this->attributes["created_at"] = date("Y-m-d H:m:s");
+        }
+
         $databaseColumns = implode(",", array_keys($this->attributes));
         $bind = implode(",", array_fill(0, count($this->attributes), "?"));
 
@@ -96,6 +102,8 @@ abstract class Model {
             "UPDATE $this->table SET $bind WHERE $this->primaryKey = $id",
             array_values($this->attributes)
         );
+
+        return $this;
     }
 
     public function delete(): static {
@@ -113,7 +121,7 @@ abstract class Model {
     public static function first(): ?static {
         $model = new static();
         $rows = self::$driver->statement("SELECT * FROM $model->table ORDER BY $model->primaryKey LIMIT 1");
-        
+
         if (count($rows) == 0) {
             return null;
         }
@@ -124,7 +132,8 @@ abstract class Model {
     public static function firstWhere(string $column, mixed $value): ?static {
         $model = new static();
         $rows = self::$driver->statement(
-            "SELECT * FROM $model->table WHERE $column = ? LIMIT 1", [$value]
+            "SELECT * FROM $model->table WHERE $column = ? LIMIT 1",
+            [$value]
         );
 
         if (count($rows) == 0) {
@@ -137,7 +146,7 @@ abstract class Model {
     public static function find(int | string $id): ?static {
         $model = new static();
         $rows = self::$driver->statement("SELECT * FROM $model->table WHERE $model->primaryKey = ?", [$id]);
-        
+
         if (count($rows) == 0) {
             return null;
         }
@@ -148,24 +157,7 @@ abstract class Model {
     public static function all(): array {
         $model = new static();
         $rows = self::$driver->statement("SELECT * FROM $model->table");
-        
-        if (count($rows) == 0) {
-            return [];
-        }
 
-        $models = [$model->setAttributes($rows[0])];
-
-        for ($i = 0; $i < count($rows); $i++) {
-            $models[] = (new static())->setAttributes($rows[$i]);
-        }
-
-        return $models;
-    }
-
-    public static function where(string $column, mixed $value): array {
-        $model = new static();
-        $rows = self::$driver->statement("SELECT * FROM $model->table WHERE $column = ?", [$value]);
-        
         if (count($rows) == 0) {
             return [];
         }
@@ -179,6 +171,23 @@ abstract class Model {
         return $models;
     }
 
-    
+    public static function where(string $column, mixed $value): array {
+        $model = new static();
+        $rows = self::$driver->statement("SELECT * FROM $model->table WHERE $column = ?", [$value]);
+
+        if (count($rows) == 0) {
+            return [];
+        }
+
+        $models = [$model->setAttributes($rows[0])];
+
+        for ($i = 1; $i < count($rows); $i++) {
+            $models[] = (new static())->setAttributes($rows[$i]);
+        }
+
+        return $models;
+    }
+
+
 
 }
