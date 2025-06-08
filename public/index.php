@@ -89,16 +89,21 @@ Route::get('/user', function (Request $requets) {
 }); 
 
 class User extends Model {
-
+    protected array $fillable = ['name', 'email'];
 }
 
 Route::post('/user/model', function(Request $request) {
-    $user = new User();
-    $user->name = $request->data('name');
-    $user->email = $request->data('email');
-    $user->save();
+    // $user = new User();
+    // $user->name = $request->data('name');
+    // $user->email = $request->data('email');
+    // $user->save();
 
-    return json(["message" => "ok"]);
+    // Query made using ORM
+    return json(User::create($request->data())->toArray());
+});
+
+Route::get('/user/query', function(Request $request) {
+    return json(User::firstWhere('name', 'Manolo')->toArray());
 });
 
 $app->run();
