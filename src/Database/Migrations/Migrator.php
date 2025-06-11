@@ -2,13 +2,44 @@
 
 namespace Lyra\Database\Migrations;
 
+use Lyra\Database\Drivers\DatabaseDriver;
+
 class Migrator {
     public function __construct(
         private string $migrationsDirectory,
-        private string $templatesDirectory
+        private string $templatesDirectory,
+        private DatabaseDriver $driver,
     ) {
         $this->migrationsDirectory = $migrationsDirectory;
         $this->templatesDirectory = $templatesDirectory;
+        $this->driver = $driver;
+    }
+
+    private function log(string $message) {
+        print($message . PHP_EOL);
+    }
+
+    private function createMigrationsTable() {
+        $this->driver->statement("CREATE TABLE IF NOT EXISTS migrations (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255))");
+    }
+
+    public function migrate() {
+        $this->createMigrationsTable();
+        $migrated = $this->driver->statement("SELECT * FROM migrations");
+        $migrations = glob("$this->migrationsDirectory/*.php");
+
+        if (count($migrated) >= count($migrations)) {
+            $this->log("Nothing to migrate");
+            return;
+        }
+
+        foreach (array_slice($migrations, count($migrated)) as $file) {
+            $migration = require $file;
+            $migration->up();
+            $name = basename($file);
+            $this->driver->statement("INSERT INTO migrations (name) VALUES (?)", [$name]);
+            $this->log("Migrated => $name");
+        }
     }
 
     public function make(string $migrationName) {

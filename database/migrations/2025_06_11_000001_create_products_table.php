@@ -5,10 +5,10 @@ use Lyra\Database\Migrations\Migration;
 
 return new class() implements Migration {
     public function up() {
-        // DB::statement('$UP');
+        DB::statement('CREATE TABLE products (id INT AUTO_INCREMENT PRIMARY KEY)');
     }
 
     public function down() {
-        // DB::statement('$DOWN');
+        DB::statement('DROP TABLE products');
     }
 };

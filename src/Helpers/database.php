@@ -1,5 +1,7 @@
 <?php
 
+use Lyra\Database\Drivers\DatabaseDriver;
+
 function db() {
-    return app()->database;
+    return app(DatabaseDriver::class);
 }
