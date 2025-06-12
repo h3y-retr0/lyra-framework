@@ -2,6 +2,7 @@
 
 namespace Lyra;
 
+use Dotenv\Dotenv;
 use Lyra\Database\Drivers\DatabaseDriver;
 use Lyra\Database\Drivers\PdoDriver;
 use Lyra\Database\Model;
@@ -18,9 +19,16 @@ use Lyra\Validation\Exceptions\ValidationException;
 use Lyra\Validation\Rule;
 use Lyra\View\LyraEngine;
 use Lyra\View\View;
+use Lyra\Config\Config;
 use Throwable;
 
 class App {
+    /**
+     * App's root directory.
+     *
+     * @var string
+     */
+    public static string $root;
     /**
      * App router.
      *
@@ -53,7 +61,10 @@ class App {
      *
      * @return \Lyra\App
      */
-    public static function bootstrap() {
+    public static function bootstrap(string $root) {
+        self::$root = $root;
+        Dotenv::createImmutable($root)->load();
+        Config::load("$root/config");
         $app = singleton(self::class);
         $app->router = new Router();
         $app->server = new PhpNativeServer();

@@ -12,7 +12,7 @@ use Lyra\Validation\Rules\Required;
 
 require_once "../vendor/autoload.php";
 
-$app = App::bootstrap();
+$app = App::bootstrap(__DIR__ . "/..");
 
 $app->router->get('/test/{param}', function (Request $request) {
     return json($request->routeParameters());
@@ -105,6 +105,8 @@ Route::post('/user/model', function(Request $request) {
 Route::get('/user/query', function(Request $request) {
     return json(User::firstWhere('name', 'Manolo')->toArray());
 });
+
+Route::get("/dbhost", fn(Request $request) => Response::text(config("database.port")));
 
 $app->run();
 
