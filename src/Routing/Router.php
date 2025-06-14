@@ -3,6 +3,7 @@
 namespace Lyra\Routing;
 
 use Closure;
+use Lyra\Container\DependencyInjection;
 use Lyra\Http\HttpMethod;
 use Lyra\Http\HttpNotFoundException;
 use Lyra\Http\Request;
@@ -59,11 +60,13 @@ class Router {
         // method using the following syntax:
         // [$object, 'method_name']()
 
+        $params = DependencyInjection::resolveParameters($action, $request->routeParameters());
+
         // Run middlewares if they exist
         return $this->runMiddlewares(
             $request,
             $route->middlewares(),
-            fn () => call_user_func($action, $request)
+            fn () => call_user_func($action, ...$params)
         );
 
     }

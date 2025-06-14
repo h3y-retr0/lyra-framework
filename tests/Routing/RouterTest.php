@@ -127,7 +127,7 @@ class RouterTest extends TestCase {
         $router = new Router();
         $uri = '/test';
         $unreachableResponse = Response::text("unreachable");
-        $router->get($uri, fn ($request) => $unreachableResponse)
+        $router->get($uri, fn () => $unreachableResponse)
             ->setMiddlewares([$stopMiddleware, $middleware]);
 
         $response = $router->resolve($this->createMockRequest($uri, HttpMethod::GET));

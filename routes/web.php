@@ -7,7 +7,7 @@ use Lyra\Http\Request;
 use Lyra\Http\Response;
 use Lyra\Routing\Route;
 
-Route::get('/', function ($request) {
+Route::get('/', function () {
     if (isGuest()) {
         return Response::text('Guest');
     }
@@ -15,13 +15,15 @@ Route::get('/', function ($request) {
     return Response::text(auth()->name);
 });
 
-Route::get('/form', fn ($request) => view("form"));
+Route::get('/form', fn () => view("form"));
+Route::get('/user/{user}', fn (User $user) => json($user->toArray()));
+Route::get('/route/{param}', fn(int $param) => json(["param" => $param]));
 
 Route::get('/register', [RegisterController::class, 'create']);
 
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/login', fn ($request) => view('auth/login'));
+Route::get('/login', fn () => view('auth/login'));
 
 Route::post('/login', function (Request $request) {
     $data = $request->validate([
@@ -43,7 +45,7 @@ Route::post('/login', function (Request $request) {
     return redirect('/');
 });
 
-Route::get('/logout', function ($request) {
+Route::get('/logout', function () {
     auth()->logout();
     return redirect('/');
 });
