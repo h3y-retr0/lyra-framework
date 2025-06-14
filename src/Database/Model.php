@@ -16,7 +16,7 @@ abstract class Model {
 
     protected array $attributes = [];
 
-    protected bool $insertTimestamps = false;
+    protected bool $insertTimestamps = true;
 
     private static ?DatabaseDriver $driver = null;
 

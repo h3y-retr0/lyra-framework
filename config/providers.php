@@ -21,6 +21,7 @@ return [
      * Service providers that will run after booting application.
      */
     'runtime' => [
-        
+        App\Providers\RuleServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
     ],
 ];
