@@ -5,7 +5,8 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Lyra\\": "src/"
+      "Lyra\\": "src/",
+      "App\\": "app/"
     },
     "files": [
       "src/Helpers/kernel.php",
