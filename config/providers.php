@@ -8,10 +8,12 @@ return [
         /**
          * Lyra framework service provicers
          */
-        \Lyra\Providers\ServerServiceProvider::class,
-        \Lyra\Providers\DatabaseDriverServiceProvider::class,
-        \Lyra\Providers\SessionStorageServiceProvider::class,
-        \Lyra\Providers\ViewServiceProvider::class,
+        Lyra\Providers\ServerServiceProvider::class,
+        Lyra\Providers\DatabaseDriverServiceProvider::class,
+        Lyra\Providers\SessionStorageServiceProvider::class,
+        Lyra\Providers\ViewServiceProvider::class,
+        Lyra\Providers\AuthenticatorServiceProvider::class,
+        Lyra\Providers\HasherServiceProvider::class,
 
         /**
          * Package service providers
