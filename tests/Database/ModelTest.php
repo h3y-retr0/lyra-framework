@@ -150,11 +150,9 @@ class ModelTest extends TestCase {
     public function test_update() {
         $this->createTestTable("mock_models", ["test", "name"]);
 
-        MockModelFillable::create(["test" => "test", "name" => "name"]);
+        $model = MockModelFillable::create(["test" => "test", "name" => "name"]);
 
-        // The create method doesn't return the ID of the model.
-        // Check https://www.php.net/manual/es/pdo.lastinsertid.php to implement that feature.
-        $model = MockModelFillable::find(1);
+        // $model = MockModelFillable::find(1);
 
         $model->test = "UPDATED test";
         $model->name = "UPDATED name";

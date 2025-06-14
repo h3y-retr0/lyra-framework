@@ -23,6 +23,10 @@ class PdoDriver implements DatabaseDriver {
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    public function lastInsertId() {
+        return $this->pdo->lastInsertId();
+    }
+
     public function close() {
         // garbage colector will destroy the object.
         $this->pdo = null;
