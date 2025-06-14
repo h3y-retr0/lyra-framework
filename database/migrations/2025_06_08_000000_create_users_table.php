@@ -5,7 +5,15 @@ use Lyra\Database\Migrations\Migration;
 
 return new class() implements Migration {
     public function up() {
-        DB::statement('CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY)');
+        DB::statement('
+            CREATE TABLE users (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255),
+                email VARCHAR(255),
+                creted_at DATETIME,
+                updated_at DATETIME NULL
+            )
+        ');
     }
 
     public function down() {
