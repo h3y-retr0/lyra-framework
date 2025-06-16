@@ -26,4 +26,8 @@ return [
         App\Providers\RuleServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ],
+
+    'cli' => [
+        Lyra\Providers\DatabaseDriverServiceProvider::class,
+    ],
 ];
