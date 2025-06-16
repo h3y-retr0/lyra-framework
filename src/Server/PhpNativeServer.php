@@ -44,7 +44,7 @@ class PhpNativeServer implements Server {
 
     protected function uploadedFiles(): array {
         $files = [];
-        foreach($_FILES as $key => $file) {
+        foreach ($_FILES as $key => $file) {
             if (!empty($file["tmp_name"])) {
                 $files[$key] = new File(
                     file_get_contents($file["tmp_name"]),

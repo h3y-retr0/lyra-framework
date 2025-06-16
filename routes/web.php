@@ -1,5 +1,7 @@
 <?php
 
+use App\Controllers\ContactController;
+use App\Controllers\HomeController;
 use App\Models\User;
 use Lyra\Auth\Auth;
 use Lyra\Http\Request;
@@ -8,20 +10,15 @@ use Lyra\Routing\Route;
 
 Auth::routes();
 
-Route::get('/', function () {
-    if (isGuest()) {
-        return Response::text('Guest');
-    }
-    
-    return Response::text(auth()->name);
-});
+Route::get('/', fn () => redirect('/home'));
 
-Route::get('/form', fn () => view("form"));
-Route::get('/user/{user}', fn (User $user) => json($user->toArray()));
-Route::get('/route/{param}', fn(int $param) => json(["param" => $param]));
+Route::get('/home', [HomeController::class, 'show']);
+
+Route::get('/contacts', [ContactController::class, 'index']);
+Route::get('/contacts/create', [ContactController::class, 'create']);
+Route::post('/contacts', [ContactController::class, 'store']);
+Route::get('/contacts/edit/{contact}', [ContactController::class, 'edit']);
+Route::post('/contacts/edit/{contact}', [ContactController::class, 'update']);
+Route::get('/contacts/delete/{contact}', [ContactController::class, 'destroy']);
 
 
-Route::get('/picture', function (Request $request) {
-    $url = $request->file('picture')->store();
-    return $url;
-});

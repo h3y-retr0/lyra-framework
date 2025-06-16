@@ -18,9 +18,9 @@ class File {
         private string $type,
         private string $originalName
     ) {
-       $this->content = $content;
-       $this->type = $type;
-       $this->originalName = $originalName; 
+        $this->content = $content;
+        $this->type = $type;
+        $this->originalName = $originalName;
     }
 
     /**
@@ -54,7 +54,7 @@ class File {
      */
     public function store(?string $directory = null): string {
         $file = uniqid() . $this->extension();
-        $path = is_null($directory) ? $file: "$directory/$file";
+        $path = is_null($directory) ? $file : "$directory/$file";
         return Storage::put($path, $this->content);
     }
 

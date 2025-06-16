@@ -202,7 +202,7 @@ class Request {
 
         return $validator->validate($rules, $messages);
     }
-    
+
     /**
      * Get file from request.
      *
