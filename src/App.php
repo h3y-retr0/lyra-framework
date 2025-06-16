@@ -112,13 +112,13 @@ class App {
         return $this;
     }
 
-    public function prepareNextRequest() {
+    protected function prepareNextRequest() {
         if ($this->request->method() == HttpMethod::GET) {
             $this->session->set('_previous', $this->request->uri());
         }
     }
 
-    public function terminate(Response $response) {
+    protected function terminate(Response $response) {
         $this->prepareNextRequest();
         $this->server->sendResponse($response);
         $this->database->close();

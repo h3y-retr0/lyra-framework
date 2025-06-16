@@ -22,3 +22,5 @@ Route::post('/contacts/edit/{contact}', [ContactController::class, 'update']);
 Route::get('/contacts/delete/{contact}', [ContactController::class, 'destroy']);
 
 
+Route::put('/test', fn () => json(request()->data()));
+Route::post('/test', fn () => json(request()->data()));
