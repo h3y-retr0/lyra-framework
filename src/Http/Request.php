@@ -3,6 +3,7 @@
 namespace Lyra\Http;
 
 use Lyra\Routing\Route;
+use Lyra\storage\File;
 use Lyra\Validation\Validator;
 
 /**

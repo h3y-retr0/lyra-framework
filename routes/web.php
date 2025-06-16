@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Lyra\Auth\Auth;
+use Lyra\Http\Request;
 use Lyra\Http\Response;
 use Lyra\Routing\Route;
 
@@ -22,5 +23,5 @@ Route::get('/route/{param}', fn(int $param) => json(["param" => $param]));
 
 Route::get('/picture', function (Request $request) {
     $url = $request->file('picture')->store();
-    return Response::text($url);
+    return $url;
 });

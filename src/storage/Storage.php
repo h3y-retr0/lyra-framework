@@ -2,6 +2,8 @@
 
 namespace Lyra\storage;
 
+use Lyra\storage\Drivers\FileStorageDriver;
+
 /**
  * File storage utilities.
  */

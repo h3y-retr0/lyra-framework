@@ -46,7 +46,13 @@ class File {
         };
     }
 
-    public function strore(?string $directory = null): string {
+    /**
+     * Store the file.
+     *
+     * @param string|null $directory
+     * @return string
+     */
+    public function store(?string $directory = null): string {
         $file = uniqid() . $this->extension();
         $path = is_null($directory) ? $file: "$directory/$file";
         return Storage::put($path, $this->content);
