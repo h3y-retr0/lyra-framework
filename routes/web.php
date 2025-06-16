@@ -19,3 +19,8 @@ Route::get('/form', fn () => view("form"));
 Route::get('/user/{user}', fn (User $user) => json($user->toArray()));
 Route::get('/route/{param}', fn(int $param) => json(["param" => $param]));
 
+
+Route::get('/picture', function (Request $request) {
+    $url = $request->file('picture')->store();
+    return Response::text($url);
+});

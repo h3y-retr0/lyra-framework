@@ -14,6 +14,7 @@ return [
         Lyra\Providers\ViewServiceProvider::class,
         Lyra\Providers\AuthenticatorServiceProvider::class,
         Lyra\Providers\HasherServiceProvider::class,
+        Lyra\Providers\FileStorageDriverServiceProvider::class,
 
         /**
          * Package service providers
