@@ -4,9 +4,12 @@ namespace Lyra\Cli;
 
 use Dotenv\Dotenv;
 use Lyra\App;
+use Lyra\Cli\Commands\MakeController;
 use Lyra\Cli\Commands\MakeMigration;
+use Lyra\Cli\Commands\MakeModel;
 use Lyra\Cli\Commands\Migrate;
 use Lyra\Cli\Commands\MigrateRollback;
+use Lyra\Cli\Commands\Serve;
 use Lyra\Config\Config;
 use Lyra\Database\Drivers\DatabaseDriver;
 use Lyra\Database\Migrations\Migrator;
@@ -50,6 +53,9 @@ class Cli {
             new MakeMigration(),
             new Migrate(),
             new MigrateRollback(),
+            new MakeModel(),
+            new MakeController(),
+            new Serve(),
         ]);
 
         $cli->run();
